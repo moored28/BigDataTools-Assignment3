@@ -38,7 +38,7 @@ class DataProcessor:
                 response = requests.get(self.api_url)
                 response.raise_for_status()  # Raise an exception for HTTP errors
                 data = response.json()
-                self.redis_client.set("exchange_rate_data", json.dumps(data))
+                self.redis_client.json().set("exchange_rate_data", json.dumps(data))
                 return data
         except (requests.RequestException, json.JSONDecodeError, redis.RedisError) as e:
             print("Error fetching data:", e)
